@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "bars_app",
     "api",
     "rest_framework",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -137,6 +138,7 @@ LOGIN_REDIRECT_URL = '/'
 
 # DRF
 REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
     ]
