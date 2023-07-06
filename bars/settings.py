@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # author-added
     "bars_app",
+    "api",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -133,3 +135,9 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 
 
+# DRF
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
