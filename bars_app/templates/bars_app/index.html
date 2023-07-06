@@ -1,3 +1,5 @@
+{% load static %}
+
 {% if request.user.is_authenticated %}
     <a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
 {% else %}
@@ -6,3 +8,4 @@
 
 <h1> Hello world1 </h1>
 
+<script src="{% static 'index-bundle.js' %}"></script>
