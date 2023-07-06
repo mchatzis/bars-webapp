@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+    </head>
+    <body>
+        <h1>Please login:</h1>
+        <form method="post">
+            {{ form.as_p }}
+            <button type="submit">login</button>
+            <p> Not registered? Register <a href="{% url 'bars_app:register' %}?next={{ next }}">here</a></p>
+            {% csrf_token %}
+        </form>
+    </body>
+</html>
