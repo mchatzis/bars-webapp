@@ -9,6 +9,7 @@ router.register('bars', BarViewSet)
 
 app_name = 'api'
 
+
 urlpatterns = [
     path('', include(router.urls)),
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
