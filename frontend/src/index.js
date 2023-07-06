@@ -1,6 +1,10 @@
 import { BarsApi } from "../../api-client/apis/BarsApi";
 import { Configuration } from "../../api-client/runtime";
 import Cookies from "js-cookie";
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from "./App";
 
 const apiInst = new BarsApi(
     new Configuration(
@@ -11,7 +15,18 @@ const apiInst = new BarsApi(
     )
 )
 
-apiInst.barsList()
-.then(res => console.log(res))
+const router = createBrowserRouter(
+    [
+      {
+        path:"/",
+        element:<App apiInst={apiInst}/>,
+      }
+    ],
+    {basename: "/"},
+)
+  
+  
+const container = document.getElementById('root')
+const root = ReactDOM.createRoot(container)
 
-console.log("hello frontend")
+root.render(<RouterProvider router={router}/>)
