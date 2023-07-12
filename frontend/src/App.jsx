@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import mapboxgl from 'mapbox-gl';
+import { ACCESS_TOKEN } from '../../mapbox-token';
+
+mapboxgl.accessToken = ACCESS_TOKEN;
 
 
 export default function App({apiInst}){
-    
-    const [barsList, setBarsList] = useState([])
-    
-    useEffect(fetch_bars, [])
+    const map_container = useRef(null)
+    const map = useRef(null)
 
-    function fetch_bars(){
-        apiInst.barsList()
-        .then(res => setBarsList(res))
-    }
+    useEffect(() => {
+        map.current = new mapboxgl.Map({
+            container: map_container.current, // container ID
+            style: 'mapbox://styles/mapbox/streets-v12', // style URL
+            center: [22.945705, 40.633564], // starting position [lng, lat]
+            zoom: 14, // starting zoom,
+            pitch: 20, // pitch in degrees
+            bearing: 40, // bearing in degrees
+        });
+        console.log("logging: map initialized")
+    }, [])
 
 
     return (
-        <>
-            <ul>
-                {barsList.map(item => 
-                    <li key={item.latitude}>
-                        {item.latitude}
-                    </li>)
-                }
-            </ul>
-        </>
+        <div ref={map_container} id="map"></div>
     )
 }

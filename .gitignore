@@ -162,4 +162,5 @@ cython_debug/
 
 /node_modules
 /openapi-generator-cli.jar
+/mapbox-token.js
 
