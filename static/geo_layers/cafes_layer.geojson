@@ -1,0 +1,18 @@
+{
+    "type": "FeatureCollection",
+    "features":[
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.9369626,
+                    40.6333928 
+                ]
+            },
+            "properties": {
+                "title": "Maritime"
+            }
+        }
+    ]
+}
