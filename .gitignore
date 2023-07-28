@@ -164,3 +164,7 @@ cython_debug/
 /openapi-generator-cli.jar
 /mapbox-token.js
 
+/test.js
+
+/static/index-bundle.js
+

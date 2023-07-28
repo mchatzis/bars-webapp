@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl';
 import { ACCESS_TOKEN } from '../../mapbox-token';
+import LeftSidebar from './LeftSidebar';
 
 mapboxgl.accessToken = ACCESS_TOKEN;
+
+export const layer_ids = ['cafes','bars']
 
 
 export default function App({apiInst}){
     const map_container = useRef(null)
     const map = useRef(null)
+
 
     useEffect(() => {
         map.current = new mapboxgl.Map({
@@ -18,7 +22,6 @@ export default function App({apiInst}){
             pitch: 20, // pitch in degrees
             bearing: 40, // bearing in degrees
         });
-        console.log("logging: map initialized")
 
         map.current.loadImage('static/pin.png',
             (error, image) => {
@@ -35,12 +38,13 @@ export default function App({apiInst}){
         .setLngLat([22.948380,40.626352])
         .addTo(map.current);
 
+
         map.current.on('load', () => {
-            map.current.addSource("cafes", {
-                type: 'geojson',
+            
+            map.current.addSource('cafes', {
+                type: "geojson",
                 data: "static/geo_layers/cafes_layer.geojson"
             });
-
             map.current.addLayer({
                 'id': 'cafes',
                 'type': 'symbol',
@@ -53,18 +57,50 @@ export default function App({apiInst}){
                     // get the title name from the source's "title" property
                     'text-field': ['get', 'title'],
                     'text-offset': [0, -2.5],
+                    'visibility': 'none'
                     },
                 'paint':
                 {
-                    'text-color':'white'
+                    'text-color': 'white'
+                }
+            });
+
+            map.current.addSource('bars', {
+                type: "geojson",
+                data: "static/geo_layers/bars_layer.geojson"
+            });
+            map.current.addLayer({
+                'id': 'bars',
+                'type': 'symbol',
+                'source': 'bars',
+                'layout': 
+                    {
+                    'icon-image': 'pin',
+                    'icon-size' : 0.05,
+                    'icon-anchor': 'bottom',
+                    // get the title name from the source's "title" property
+                    'text-field': ['get', 'title'],
+                    'text-offset': [0, -2.5],
+                    'visibility': 'none'
+                    },
+                'paint':
+                {
+                    'text-color': 'orange'
                 }
             });
         })
-
     }, [])
 
 
     return (
-        <div ref={map_container} id="map"></div>
+        <>  
+            <div ref={map_container} id="map"></div>
+            <div id="left-sidebar">
+                <LeftSidebar 
+                    map={map}
+                    layer_ids={layer_ids}
+                    />
+            </div>
+        </>
     )
 }

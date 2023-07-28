@@ -1,0 +1,18 @@
+{
+    "type": "FeatureCollection",
+    "features":[
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.937591,
+                    40.637141
+                ]
+            },
+            "properties": {
+                "title": "Gorillas"
+            }
+        }
+    ]
+}

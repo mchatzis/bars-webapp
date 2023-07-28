@@ -1,27 +1,29 @@
 {% load static %}
 
-<head>
-    <meta charset="utf-8">
-    <title>Display a map on a webpage</title>
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
-    <link href="{% static 'main.css' %}" type="text/css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-</head>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Display a map on a webpage</title>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+        <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+        <link href="{% static 'main.css' %}" type="text/css" rel="stylesheet">
+        <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    </head>
 
-<body>
-    <div id="header">
-        <div id="auth">
-            {% if request.user.is_authenticated %}
-                <button onclick="window.location.href = '{% url "logout" %}?next={{ request.path }}'">Logout</button>
-            {% else %}
-                <button onclick="window.location.href = '{% url 'login' %}?next={{ request.path }}'">Login</button>
-            {% endif %}
+    <body>
+        <div id="header">
+            <div id="auth">
+                {% if request.user.is_authenticated %}
+                    <button onclick="window.location.href = '{% url "logout" %}?next={{ request.path }}'">Logout</button>
+                {% else %}
+                    <button onclick="window.location.href = '{% url 'login' %}?next={{ request.path }}'">Login</button>
+                {% endif %}
+            </div>
+            <h2 id="title"> Thessaloniki bars </h1>
         </div>
-        <h2 id="title"> Thessaloniki bars </h1>
-    </div>
 
-    <div id="root">
-        <script src="{% static 'index-bundle.js' %}"></script>
-    </div>
-</body>
+        <div id="root">
+            <script src="{% static 'index-bundle.js' %}"></script>
+        </div>
+    </body>
+</html>
