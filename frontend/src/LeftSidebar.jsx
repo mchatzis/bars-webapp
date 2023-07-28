@@ -7,19 +7,18 @@ export default function LeftSidebar(props){
 
     return (
         <>
-            <FilterButton 
-                map={props.map}
-                layer_id={props.layer_ids[0]}
-                activeButton={activeButton}
-                setActiveButton={setActiveButton}
-            />
-            <br></br>
-            <FilterButton 
-                map={props.map}
-                layer_id={props.layer_ids[1]}
-                activeButton={activeButton}
-                setActiveButton={setActiveButton}
-            />
+            {props.layer_ids.map((layer_id) =>{
+                return (
+                    <div key={layer_id}>
+                        <FilterButton 
+                            map={props.map}
+                            layer_id={layer_id}
+                            activeButton={activeButton}
+                            setActiveButton={setActiveButton}
+                        />
+                    </div>
+                );
+            })}
         </>
-    )
+    );
 }

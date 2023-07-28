@@ -13,6 +13,8 @@ export default function FilterButton({map, layer_id, activeButton, setActiveButt
     }
 
     function handleClick(){
+        //TODO: Check map has fully rendered before accessing layout properties,
+        // otherwise error: "The layer 'bars' does not exist in the map's style and cannot be styled"
         // Make only the chosen layer visible
         layer_ids.forEach((layer) => map.current.setLayoutProperty(layer, 'visibility', 'none'))
         map.current.setLayoutProperty(layer_id, 'visibility', 'visible')
