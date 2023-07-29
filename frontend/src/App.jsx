@@ -5,6 +5,7 @@ import LeftSidebar from './LeftSidebar';
 
 mapboxgl.accessToken = ACCESS_TOKEN;
 
+export const COLOR = '#ffe42f'
 export const layer_ids = ['cafes','bars']
 
 
@@ -17,7 +18,7 @@ export default function App({apiInst}){
         map.current = new mapboxgl.Map({
             container: map_container.current, // container ID
             style: 'mapbox://styles/mchatzis/clk130qw500bo01qy3bt7frrx', // style URL
-            center: [22.945705, 40.633564], // starting position [lng, lat]
+            center: [22.945,40.632], // starting position [lng, lat]
             zoom: 14, // starting zoom,
             pitch: 20, // pitch in degrees
             bearing: 40, // bearing in degrees
@@ -41,53 +42,46 @@ export default function App({apiInst}){
 
         map.current.on('load', () => {
             
-            map.current.addSource('cafes', {
-                type: "geojson",
-                data: "static/geo_layers/cafes_layer.geojson"
-            });
-            map.current.addLayer({
-                'id': 'cafes',
-                'type': 'symbol',
-                'source': 'cafes',
-                'layout': 
-                    {
-                    'icon-image': 'pin',
-                    'icon-size' : 0.05,
-                    'icon-anchor': 'bottom',
-                    // get the title name from the source's "title" property
-                    'text-field': ['get', 'title'],
-                    'text-offset': [0, -2.5],
-                    'visibility': 'none'
+            // Add sources and layers
+            layer_ids.forEach((layer_id) => {
+                map.current.addSource(layer_id, {
+                    type: "geojson",
+                    data: "static/geo_layers/" + layer_id + "_layer.geojson"
+                })
+                map.current.addLayer({
+                    'id': layer_id,
+                    'type': 'circle',
+                    'source': layer_id,
+                    'layout': {
+                        'visibility': 'none'
                     },
-                'paint':
-                {
-                    'text-color': 'white'
-                }
-            });
+                    'paint': {
+                        'circle-color': COLOR,
+                        'circle-radius': 6,
+                        }
+                })
+            })
+            
+            // Add popup
+            const popup = new mapboxgl.Popup({
+                closeButton: false,
+                closeOnClick: false
+            })
 
-            map.current.addSource('bars', {
-                type: "geojson",
-                data: "static/geo_layers/bars_layer.geojson"
+            map.current.on('mouseenter', layer_ids, (e) => {
+                map.current.getCanvas().style.cursor = 'pointer';
+
+                const feature = e.features[0]
+                const coords = feature.geometry.coordinates
+                const img = "static/" + feature.properties.image
+                const html = '<img src="' + img + '" width="50" height="50" >'
+
+                popup.setLngLat(coords).setHTML(html).addTo(map.current);
             });
-            map.current.addLayer({
-                'id': 'bars',
-                'type': 'symbol',
-                'source': 'bars',
-                'layout': 
-                    {
-                    'icon-image': 'pin',
-                    'icon-size' : 0.05,
-                    'icon-anchor': 'bottom',
-                    // get the title name from the source's "title" property
-                    'text-field': ['get', 'title'],
-                    'text-offset': [0, -2.5],
-                    'visibility': 'none'
-                    },
-                'paint':
-                {
-                    'text-color': 'orange'
-                }
-            });
+            map.current.on('mouseleave', layer_ids, (e) => {
+                map.current.getCanvas().style.cursor = '';
+                popup.remove();
+            })
         })
     }, [])
 

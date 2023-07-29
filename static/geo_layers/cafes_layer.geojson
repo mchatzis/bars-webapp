@@ -11,7 +11,8 @@
                 ]
             },
             "properties": {
-                "title": "Maritime"
+                "title": "Maritime",
+                "image": "tower.png"
             }
         }
     ]

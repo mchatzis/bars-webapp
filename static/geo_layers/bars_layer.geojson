@@ -11,7 +11,8 @@
                 ]
             },
             "properties": {
-                "title": "Gorillas"
+                "title": "Gorillas",
+                "image": "pin.png"
             }
         }
     ]
