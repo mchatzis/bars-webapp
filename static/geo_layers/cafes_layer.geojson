@@ -12,7 +12,8 @@
             },
             "properties": {
                 "title": "Maritime",
-                "image": "tower.png"
+                "image": "tower.png",
+                "description": "Cafe with view"
             }
         }
     ]

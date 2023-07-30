@@ -12,7 +12,8 @@
             },
             "properties": {
                 "title": "Gorillas",
-                "image": "pin.png"
+                "image": "pin.png",
+                "description": "Dance-full bar"
             }
         }
     ]

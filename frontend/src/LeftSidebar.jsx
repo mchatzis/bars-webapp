@@ -15,6 +15,7 @@ export default function LeftSidebar(props){
                             layer_id={layer_id}
                             activeButton={activeButton}
                             setActiveButton={setActiveButton}
+                            setClickedFeature={props.setClickedFeature}
                         />
                     </div>
                 );

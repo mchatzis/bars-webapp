@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl';
 import { ACCESS_TOKEN } from '../../mapbox-token';
 import LeftSidebar from './LeftSidebar';
+import RightSidebar from './RightSidebar';
 
 mapboxgl.accessToken = ACCESS_TOKEN;
 
@@ -12,6 +13,7 @@ export const layer_ids = ['cafes','bars']
 export default function App({apiInst}){
     const map_container = useRef(null)
     const map = useRef(null)
+    const [clickedFeature, setClickedFeature] = useState(null)
 
 
     useEffect(() => {
@@ -41,7 +43,7 @@ export default function App({apiInst}){
 
 
         map.current.on('load', () => {
-            
+
             // Add sources and layers
             layer_ids.forEach((layer_id) => {
                 map.current.addSource(layer_id, {
@@ -78,11 +80,19 @@ export default function App({apiInst}){
 
                 popup.setLngLat(coords).setHTML(html).addTo(map.current);
             });
-            map.current.on('mouseleave', layer_ids, (e) => {
+            map.current.on('mouseleave', layer_ids, () => {
                 map.current.getCanvas().style.cursor = '';
                 popup.remove();
             })
+
+            map.current.on('click', layer_ids, (e)=>{
+                setClickedFeature(e.features[0])
+                console.log(e.features[0])
+            })
         })
+
+
+
     }, [])
 
 
@@ -93,7 +103,14 @@ export default function App({apiInst}){
                 <LeftSidebar 
                     map={map}
                     layer_ids={layer_ids}
+                    setClickedFeature={setClickedFeature}
                     />
+            </div>
+            <div id="right-sidebar">
+                <RightSidebar
+                    map={map}
+                    clickedFeature={clickedFeature}
+                />
             </div>
         </>
     )

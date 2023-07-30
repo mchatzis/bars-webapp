@@ -2,7 +2,7 @@ import React from "react";
 import { layer_ids, COLOR } from "./App";
 
 
-export default function FilterButton({map, layer_id, activeButton, setActiveButton}){
+export default function FilterButton({map, layer_id, activeButton, setActiveButton, setClickedFeature}){
     const inactiveButtonStyle = {
         position:'relative'
     }
@@ -20,6 +20,7 @@ export default function FilterButton({map, layer_id, activeButton, setActiveButt
         layer_ids.forEach((layer) => map.current.setLayoutProperty(layer, 'visibility', 'none'))
         map.current.setLayoutProperty(layer_id, 'visibility', 'visible')
         setActiveButton(layer_id)
+        setClickedFeature(null)
     }
 
     return(
