@@ -11,9 +11,26 @@
                 ]
             },
             "properties": {
+                "unique_id": "cafes001",
                 "title": "Maritime",
                 "image": "tower.png",
                 "description": "Cafe with view"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.945,
+                    40.632
+                ]
+            },
+            "properties": {
+                "unique_id": "cafes002",
+                "title": "test_cafe",
+                "image": "tower.png",
+                "description": "test cafe"
             }
         }
     ]

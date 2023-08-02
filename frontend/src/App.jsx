@@ -7,14 +7,38 @@ import RightSidebar from './RightSidebar';
 mapboxgl.accessToken = ACCESS_TOKEN;
 
 export const COLOR = '#ffe42f'
-export const layer_ids = ['cafes','bars']
-
+export const layer_ids = ['cafes']
+// export const layer_ids = ['cafes','bars']
 
 export default function App({apiInst}){
     const map_container = useRef(null)
     const map = useRef(null)
     const [clickedFeature, setClickedFeature] = useState(null)
 
+    function format_json(res_data){
+        let feature_list = res_data.map((feature)=>{
+            return {
+                "type": "Feature",
+                "geometry": {
+                    "type": feature.feature_type,
+                    "coordinates": [
+                        feature.longitude,
+                        feature.latitude
+                    ]
+                },
+                "properties": {
+                    "title": feature.title,
+                    "description": feature.description,
+                    "image_url": feature.image_url
+                }
+            }
+        })
+
+        return  {
+            "type": "FeatureCollection",
+            "features":feature_list
+        }
+    }
 
     useEffect(() => {
         map.current = new mapboxgl.Map({
@@ -25,12 +49,6 @@ export default function App({apiInst}){
             pitch: 20, // pitch in degrees
             bearing: 40, // bearing in degrees
         });
-
-        map.current.loadImage('static/pin.png',
-            (error, image) => {
-                map.current.addImage('pin', image);
-            }
-        )
         
         const elm = document.createElement('div')
         elm.style.backgroundImage = 'url(http://127.0.0.1:8000/static/tower.png)'
@@ -89,12 +107,33 @@ export default function App({apiInst}){
                 setClickedFeature(e.features[0])
                 console.log(e.features[0])
             })
+
+            let layer_id = "bars"
+            fetch("http://127.0.0.1:8000/api/" + layer_id + "/")
+            .then(res => res.json())
+            .then(data => format_json(data), null, 2)
+            .then(json_data => {
+                map.current.addSource(layer_id, {
+                    type: "geojson",
+                    data: json_data
+                })
+    
+                map.current.addLayer({
+                    'id': layer_id,
+                    'type': 'circle',
+                    'source': layer_id,
+                    'layout': {
+                        'visibility': 'visible'
+                    },
+                    'paint': {
+                        'circle-color': COLOR,
+                        'circle-radius': 6,
+                        }
+                })
+            })
+    
         })
-
-
-
     }, [])
-
 
     return (
         <>  

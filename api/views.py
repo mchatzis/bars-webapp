@@ -5,4 +5,4 @@ from bars_app.models import Bar
 
 class BarViewSet(ModelViewSet):
     serializer_class = BarSerializer
-    queryset = Bar.objects.all()
+    queryset = Bar.objects.filter(bar_type=2)

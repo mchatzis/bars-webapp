@@ -11,9 +11,26 @@
                 ]
             },
             "properties": {
+                "unique_id": "bars001",
                 "title": "Gorillas",
                 "image": "pin.png",
                 "description": "Dance-full bar"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    22.96,
+                    40.632
+                ]
+            },
+            "properties": {
+                "unique_id": "bars002",
+                "title": "test_bar",
+                "image": "tower.png",
+                "description": "test bar"
             }
         }
     ]
