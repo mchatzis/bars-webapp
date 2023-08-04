@@ -4,41 +4,16 @@ import { ACCESS_TOKEN } from '../../mapbox-token';
 import LeftSidebar from './LeftSidebar';
 import RightSidebar from './RightSidebar';
 
+export const COLOR = '#ffe42f';
 mapboxgl.accessToken = ACCESS_TOKEN;
 
-export const COLOR = '#ffe42f'
-export const layer_ids = ['cafes']
-// export const layer_ids = ['cafes','bars']
+const layerIds = JSON.parse(document.getElementById('layerIds').textContent);
+
 
 export default function App({apiInst}){
     const map_container = useRef(null)
     const map = useRef(null)
     const [clickedFeature, setClickedFeature] = useState(null)
-
-    function format_json(res_data){
-        let feature_list = res_data.map((feature)=>{
-            return {
-                "type": "Feature",
-                "geometry": {
-                    "type": feature.feature_type,
-                    "coordinates": [
-                        feature.longitude,
-                        feature.latitude
-                    ]
-                },
-                "properties": {
-                    "title": feature.title,
-                    "description": feature.description,
-                    "image_url": feature.image_url
-                }
-            }
-        })
-
-        return  {
-            "type": "FeatureCollection",
-            "features":feature_list
-        }
-    }
 
     useEffect(() => {
         map.current = new mapboxgl.Map({
@@ -61,26 +36,6 @@ export default function App({apiInst}){
 
 
         map.current.on('load', () => {
-
-            // Add sources and layers
-            layer_ids.forEach((layer_id) => {
-                map.current.addSource(layer_id, {
-                    type: "geojson",
-                    data: "static/geo_layers/" + layer_id + "_layer.geojson"
-                })
-                map.current.addLayer({
-                    'id': layer_id,
-                    'type': 'circle',
-                    'source': layer_id,
-                    'layout': {
-                        'visibility': 'none'
-                    },
-                    'paint': {
-                        'circle-color': COLOR,
-                        'circle-radius': 6,
-                        }
-                })
-            })
             
             // Add popup
             const popup = new mapboxgl.Popup({
@@ -88,7 +43,7 @@ export default function App({apiInst}){
                 closeOnClick: false
             })
 
-            map.current.on('mouseenter', layer_ids, (e) => {
+            map.current.on('mouseenter', layerIds, (e) => {
                 map.current.getCanvas().style.cursor = 'pointer';
 
                 const feature = e.features[0]
@@ -98,38 +53,14 @@ export default function App({apiInst}){
 
                 popup.setLngLat(coords).setHTML(html).addTo(map.current);
             });
-            map.current.on('mouseleave', layer_ids, () => {
+            map.current.on('mouseleave', layerIds, () => {
                 map.current.getCanvas().style.cursor = '';
                 popup.remove();
             })
 
-            map.current.on('click', layer_ids, (e)=>{
+            map.current.on('click', layerIds, (e)=>{
                 setClickedFeature(e.features[0])
                 console.log(e.features[0])
-            })
-
-            let layer_id = "bars"
-            fetch("http://127.0.0.1:8000/api/" + layer_id + "/")
-            .then(res => res.json())
-            .then(data => format_json(data), null, 2)
-            .then(json_data => {
-                map.current.addSource(layer_id, {
-                    type: "geojson",
-                    data: json_data
-                })
-    
-                map.current.addLayer({
-                    'id': layer_id,
-                    'type': 'circle',
-                    'source': layer_id,
-                    'layout': {
-                        'visibility': 'visible'
-                    },
-                    'paint': {
-                        'circle-color': COLOR,
-                        'circle-radius': 6,
-                        }
-                })
             })
     
         })
@@ -141,7 +72,7 @@ export default function App({apiInst}){
             <div id="left-sidebar">
                 <LeftSidebar 
                     map={map}
-                    layer_ids={layer_ids}
+                    layerIds={layerIds}
                     setClickedFeature={setClickedFeature}
                     />
             </div>
