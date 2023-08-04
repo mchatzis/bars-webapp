@@ -48,8 +48,8 @@ export default function App({apiInst}){
 
                 const feature = e.features[0]
                 const coords = feature.geometry.coordinates
-                const img = "static/" + feature.properties.image
-                const html = '<img src="' + img + '" width="50" height="50" >'
+                const img_url = "static/" + feature.properties.image_url
+                const html = '<img src="' + img_url + '" width="50" height="50" >'
 
                 popup.setLngLat(coords).setHTML(html).addTo(map.current);
             });
