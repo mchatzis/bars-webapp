@@ -66,7 +66,6 @@ export default function FilterButton({map, layerId, existingLayerIds, activeButt
             await fetchAddLayer(map, layerId, existingLayerIds)
         }
 
-        console.log(existingLayerIds.current)
         // Make only the chosen layer visible
         existingLayerIds.current.forEach((layer) => map.current.setLayoutProperty(layer, 'visibility', 'none'))
         map.current.setLayoutProperty(layerId, 'visibility', 'visible')
