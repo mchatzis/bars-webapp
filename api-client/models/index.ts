@@ -1,4 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export * from './Bar';
-export * from './PatchedBar';
+export * from './BarType';
+export * from './FeatureTypeEnum';

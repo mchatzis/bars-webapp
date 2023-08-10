@@ -5,15 +5,18 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from "./App";
+import credentials from '../../credentials.json'
 
 const apiInst = new BarsApi(
     new Configuration(
       {
-        basePath:'http://127.0.0.1:8000',
+        basePath: 'http://' + credentials.HOST_IP + ':' + credentials.HOST_PORT,
         headers:{'X-CSRFToken':Cookies.get('csrftoken')},
       },
     )
 )
+apiInst.barsList({type:"cafes"})
+.then(list => console.log(list))
 
 const router = createBrowserRouter(
     [

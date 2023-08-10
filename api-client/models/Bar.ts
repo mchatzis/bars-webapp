@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { FeatureTypeEnum } from './FeatureTypeEnum';
+import {
+    FeatureTypeEnumFromJSON,
+    FeatureTypeEnumFromJSONTyped,
+    FeatureTypeEnumToJSON,
+} from './FeatureTypeEnum';
+
 /**
  * 
  * @export
@@ -21,10 +28,10 @@ import { exists, mapValues } from '../runtime';
 export interface Bar {
     /**
      * 
-     * @type {number}
+     * @type {FeatureTypeEnum}
      * @memberof Bar
      */
-    readonly id: number;
+    featureType?: FeatureTypeEnum;
     /**
      * 
      * @type {string}
@@ -37,6 +44,24 @@ export interface Bar {
      * @memberof Bar
      */
     latitude: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Bar
+     */
+    title: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Bar
+     */
+    description?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Bar
+     */
+    imageUrl?: string | null;
 }
 
 /**
@@ -44,9 +69,9 @@ export interface Bar {
  */
 export function instanceOfBar(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "id" in value;
     isInstance = isInstance && "longitude" in value;
     isInstance = isInstance && "latitude" in value;
+    isInstance = isInstance && "title" in value;
 
     return isInstance;
 }
@@ -61,9 +86,12 @@ export function BarFromJSONTyped(json: any, ignoreDiscriminator: boolean): Bar {
     }
     return {
         
-        'id': json['id'],
+        'featureType': !exists(json, 'feature_type') ? undefined : FeatureTypeEnumFromJSON(json['feature_type']),
         'longitude': json['longitude'],
         'latitude': json['latitude'],
+        'title': json['title'],
+        'description': !exists(json, 'description') ? undefined : json['description'],
+        'imageUrl': !exists(json, 'image_url') ? undefined : json['image_url'],
     };
 }
 
@@ -76,8 +104,12 @@ export function BarToJSON(value?: Bar | null): any {
     }
     return {
         
+        'feature_type': FeatureTypeEnumToJSON(value.featureType),
         'longitude': value.longitude,
         'latitude': value.latitude,
+        'title': value.title,
+        'description': value.description,
+        'image_url': value.imageUrl,
     };
 }
 

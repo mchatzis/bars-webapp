@@ -1,9 +1,10 @@
-.openapi-generator-ignore
+apis/BarTypesApi.ts
 apis/BarsApi.ts
 apis/SchemaApi.ts
 apis/index.ts
 index.ts
 models/Bar.ts
-models/PatchedBar.ts
+models/BarType.ts
+models/FeatureTypeEnum.ts
 models/index.ts
 runtime.ts

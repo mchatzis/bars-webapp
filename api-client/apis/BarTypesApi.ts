@@ -15,47 +15,39 @@
 
 import * as runtime from '../runtime';
 import type {
-  Bar,
+  BarType,
 } from '../models';
 import {
-    BarFromJSON,
-    BarToJSON,
+    BarTypeFromJSON,
+    BarTypeToJSON,
 } from '../models';
-
-export interface BarsListRequest {
-    type?: string;
-}
 
 /**
  * 
  */
-export class BarsApi extends runtime.BaseAPI {
+export class BarTypesApi extends runtime.BaseAPI {
 
     /**
      */
-    async barsListRaw(requestParameters: BarsListRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Bar>>> {
+    async barTypesListRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<BarType>>> {
         const queryParameters: any = {};
-
-        if (requestParameters.type !== undefined) {
-            queryParameters['type'] = requestParameters.type;
-        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/bars/`,
+            path: `/api/bar-types/`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(BarFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(BarTypeFromJSON));
     }
 
     /**
      */
-    async barsList(requestParameters: BarsListRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Bar>> {
-        const response = await this.barsListRaw(requestParameters, initOverrides);
+    async barTypesList(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<BarType>> {
+        const response = await this.barTypesListRaw(initOverrides);
         return await response.value();
     }
 

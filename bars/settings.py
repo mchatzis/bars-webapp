@@ -11,7 +11,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
+import json
 from pathlib import Path
+
+# Import router ip address
+with open('credentials.json') as file:
+    json_file = json.load(file)
+router_ip = json_file['HOST_IP']
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +32,8 @@ SECRET_KEY = "django-insecure-s%)nnhhza+(fdsc8w0clh-9-lyu9jm_+f)q4dj^qu0@-t^wk@*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [router_ip, '192.168.1.20']
+
 
 
 # Application definition

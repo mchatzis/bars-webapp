@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl';
-import { ACCESS_TOKEN } from '../../mapbox-token';
 import LeftSidebar from './LeftSidebar';
 import RightSidebar from './RightSidebar';
+import credentials from '../../credentials.json'
 
 export const COLOR = '#ffe42f';
-mapboxgl.accessToken = ACCESS_TOKEN;
+const IP = credentials.HOST_IP
+const PORT = credentials.HOST_PORT
+mapboxgl.accessToken = credentials.ACCESS_TOKEN;
 
 const layerIds = JSON.parse(document.getElementById('layerIds').textContent);
 
@@ -26,7 +28,7 @@ export default function App({apiInst}){
         });
         
         const elm = document.createElement('div')
-        elm.style.backgroundImage = 'url(http://127.0.0.1:8000/static/tower.png)'
+        elm.style.backgroundImage = 'url(http://' + IP + ':' + PORT + '/static/tower.png)'
         elm.style.width = `50px`;
         elm.style.height = `57px`;
         elm.style.backgroundSize = '100%';

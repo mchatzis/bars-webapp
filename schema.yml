@@ -3,9 +3,32 @@ info:
   title: ''
   version: 0.0.0
 paths:
+  /api/bar-types/:
+    get:
+      operationId: bar_types_list
+      tags:
+      - bar-types
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BarType'
+          description: ''
   /api/bars/:
     get:
       operationId: bars_list
+      parameters:
+      - in: query
+        name: type
+        schema:
+          type: string
+        description: Bar Type
       tags:
       - bars
       security:
@@ -20,136 +43,6 @@ paths:
                 items:
                   $ref: '#/components/schemas/Bar'
           description: ''
-    post:
-      operationId: bars_create
-      tags:
-      - bars
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Bar'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Bar'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Bar'
-        required: true
-      security:
-      - cookieAuth: []
-      - {}
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Bar'
-          description: ''
-  /api/bars/{id}/:
-    get:
-      operationId: bars_retrieve
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this bar.
-        required: true
-      tags:
-      - bars
-      security:
-      - cookieAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Bar'
-          description: ''
-    put:
-      operationId: bars_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this bar.
-        required: true
-      tags:
-      - bars
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Bar'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Bar'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/Bar'
-        required: true
-      security:
-      - cookieAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Bar'
-          description: ''
-    patch:
-      operationId: bars_partial_update
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this bar.
-        required: true
-      tags:
-      - bars
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/PatchedBar'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/PatchedBar'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/PatchedBar'
-      security:
-      - cookieAuth: []
-      - {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Bar'
-          description: ''
-    delete:
-      operationId: bars_destroy
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this bar.
-        required: true
-      tags:
-      - bars
-      security:
-      - cookieAuth: []
-      - {}
-      responses:
-        '204':
-          description: No response body
   /api/schema/:
     get:
       operationId: schema_retrieve
@@ -299,35 +192,48 @@ components:
     Bar:
       type: object
       properties:
-        id:
-          type: integer
-          readOnly: true
+        feature_type:
+          $ref: '#/components/schemas/FeatureTypeEnum'
         longitude:
           type: string
           format: decimal
-          pattern: ^-?\d{0,1}(?:\.\d{0,5})?$
+          pattern: ^-?\d{0,4}(?:\.\d{0,6})?$
         latitude:
           type: string
           format: decimal
-          pattern: ^-?\d{0,1}(?:\.\d{0,5})?$
+          pattern: ^-?\d{0,4}(?:\.\d{0,6})?$
+        title:
+          type: string
+          maxLength: 30
+        description:
+          type: string
+          maxLength: 120
+        image_url:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
       required:
-      - id
       - latitude
       - longitude
-    PatchedBar:
+      - title
+    BarType:
       type: object
       properties:
         id:
           type: integer
           readOnly: true
-        longitude:
+        type:
           type: string
-          format: decimal
-          pattern: ^-?\d{0,1}(?:\.\d{0,5})?$
-        latitude:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,1}(?:\.\d{0,5})?$
+          maxLength: 20
+      required:
+      - id
+      - type
+    FeatureTypeEnum:
+      enum:
+      - Point
+      type: string
+      description: '* `Point` - Point'
   securitySchemes:
     cookieAuth:
       type: apiKey

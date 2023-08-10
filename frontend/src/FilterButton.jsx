@@ -1,5 +1,10 @@
 import React from "react";
 import { COLOR } from "./App";
+import credentials from '../../credentials.json'
+
+const IP = credentials.HOST_IP
+const PORT = credentials.HOST_PORT
+
 
 function to_geojson(dbData){
     let feature_list = dbData.map((feature)=>{
@@ -28,7 +33,7 @@ function to_geojson(dbData){
 
 async function fetchAddLayer(map, layerId, existingLayerIds){
             // TODO: Handle server bad responses!
-            return  fetch("http://127.0.0.1:8000/api/bars/?type=" + layerId)
+            return  fetch("http://" + IP + ":" + PORT + "/api/bars/?type=" + layerId)
                 .then(res => res.json())
                 .then(data => to_geojson(data))
                 .then(geojsonData => {

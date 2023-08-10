@@ -1,4 +1,5 @@
 from rest_framework.generics import ListAPIView
+from drf_spectacular.utils import extend_schema_view, extend_schema, OpenApiParameter
 from api.serializers import BarSerializer, BarTypeSerializer
 from bars_app.models import Bar, BarType
 
@@ -6,6 +7,18 @@ class BarTypeListAPIView(ListAPIView):
     serializer_class = BarTypeSerializer
     queryset = BarType.objects.all()
 
+@extend_schema_view(
+    get=extend_schema(
+        parameters=[
+            OpenApiParameter(name='type',
+                             description='Bar Type',
+                             type=str,
+                             location=OpenApiParameter.QUERY,
+                             required=False
+                             ),
+        ]
+    )
+)
 class BarListAPIView(ListAPIView):
     serializer_class = BarSerializer
 
