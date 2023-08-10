@@ -15,8 +15,6 @@ const apiInst = new BarsApi(
       },
     )
 )
-apiInst.barsList({type:"cafes"})
-.then(list => console.log(list))
 
 const router = createBrowserRouter(
     [

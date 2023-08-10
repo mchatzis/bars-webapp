@@ -13,6 +13,7 @@ export default function LeftSidebar(props){
                     <div key={layerId}>
                         <FilterButton 
                             map={props.map}
+                            apiInst={props.apiInst}
                             layerId={layerId}
                             existingLayerIds={existingLayerIds}
                             activeButton={activeButton}

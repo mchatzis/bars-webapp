@@ -1,9 +1,5 @@
 import React from "react";
 import { COLOR } from "./App";
-import credentials from '../../credentials.json'
-
-const IP = credentials.HOST_IP
-const PORT = credentials.HOST_PORT
 
 
 function to_geojson(dbData){
@@ -11,7 +7,7 @@ function to_geojson(dbData){
         return {
             "type": "Feature",
             "geometry": {
-                "type": feature.feature_type,
+                "type": feature.featureType,
                 "coordinates": [
                     feature.longitude,
                     feature.latitude
@@ -20,7 +16,7 @@ function to_geojson(dbData){
             "properties": {
                 "title": feature.title,
                 "description": feature.description,
-                "image_url": feature.image_url
+                "image_url": feature.imageUrl
             }
         }
     })
@@ -31,10 +27,9 @@ function to_geojson(dbData){
     }
 }
 
-async function fetchAddLayer(map, layerId, existingLayerIds){
+async function fetchAddLayer(map, apiInst, layerId, existingLayerIds){
             // TODO: Handle server bad responses!
-            return  fetch("http://" + IP + ":" + PORT + "/api/bars/?type=" + layerId)
-                .then(res => res.json())
+                return apiInst.barsList({type:layerId})
                 .then(data => to_geojson(data))
                 .then(geojsonData => {
                     map.current.addSource(layerId, {
@@ -55,7 +50,7 @@ async function fetchAddLayer(map, layerId, existingLayerIds){
                 .then(()=> existingLayerIds.current.push(layerId))
 }
 
-export default function FilterButton({map, layerId, existingLayerIds, activeButton, setActiveButton, setClickedFeature}){
+export default function FilterButton({map, apiInst, layerId, existingLayerIds, activeButton, setActiveButton, setClickedFeature}){
 
     const inactiveButtonStyle = {
         position:'relative'
@@ -68,7 +63,7 @@ export default function FilterButton({map, layerId, existingLayerIds, activeButt
 
     async function handleClick(){
         if (map.current.getLayer(layerId) === undefined){
-            await fetchAddLayer(map, layerId, existingLayerIds)
+            await fetchAddLayer(map, apiInst, layerId, existingLayerIds)
         }
 
         // Make only the chosen layer visible
