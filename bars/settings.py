@@ -14,10 +14,10 @@ import os
 import json
 from pathlib import Path
 
-# Import router ip address
+# Import secrets
 with open('credentials.json') as file:
-    json_file = json.load(file)
-router_ip = json_file['HOST_IP']
+    secrets_file = json.load(file)
+router_ip = secrets_file['HOST_IP']
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-s%)nnhhza+(fdsc8w0clh-9-lyu9jm_+f)q4dj^qu0@-t^wk@*"
+SECRET_KEY = secrets_file['DJANGO_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -150,3 +150,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ]
 }
+
+# Media
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

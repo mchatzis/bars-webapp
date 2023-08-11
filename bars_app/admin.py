@@ -11,10 +11,13 @@ class BarAdmin(admin.ModelAdmin):
         'longitude',
         'latitude',
         'description',
-        'image_url',
         'get_bartype',
         'date_created',
-        'last_modified'
+        'last_modified',
+        'tiny_thumbnail',
+        'thumbnail',
+        'image1',
+        'image2'
     )
     
     def get_bartype(self, obj):

@@ -4,7 +4,7 @@ from bars_app.models import Bar, BarType
 class BarSerializer(ModelSerializer):
     class Meta:
         model=Bar
-        fields=['feature_type', 'longitude', 'latitude', 'title', 'description', 'image_url']
+        fields='__all__'
 
 class BarTypeSerializer(ModelSerializer):
     class Meta:
