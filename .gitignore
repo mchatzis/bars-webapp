@@ -167,6 +167,7 @@ cython_debug/
 /prod-credentials.json
 
 /test.js
+/test.py
 
 /static/index-bundle.js
 

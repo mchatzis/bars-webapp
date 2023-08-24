@@ -1,4 +1,5 @@
 from django.db import models
+from functools import partial
 import os
 
 
@@ -10,13 +11,11 @@ class BarType(models.Model):
 
 
 base_dir = "bar_images"
-def get_upload_path(img_type):
-    def get_upload_path_inner(instance, filename):
-        bar_name = instance.title
-        path = os.path.join(base_dir, bar_name, img_type)
-        print(path)
-        return path
-    return get_upload_path_inner
+def get_upload_path(instance, filename, img_type):
+    extension = os.path.splitext(filename)[1]
+    bar_name = instance.title
+    path = os.path.join(base_dir, bar_name, img_type + extension)
+    return path
 
 class Bar(models.Model):
     feature_type = models.CharField(max_length=20, choices=[("Point","Point")], default="Point")
@@ -27,10 +26,10 @@ class Bar(models.Model):
     bar_type = models.ManyToManyField(BarType)
     date_created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
-    tiny_thumbnail = models.ImageField(upload_to=get_upload_path('tiny_thumbnail'), blank=True, null=True)
-    thumbnail = models.ImageField(upload_to=get_upload_path('thumbnail'), blank=True, null=True)
-    image1 = models.ImageField(upload_to=get_upload_path('image1'), blank=True, null=True)
-    image2 = models.ImageField(upload_to=get_upload_path('image2'), blank=True, null=True)
+    tiny_thumbnail = models.ImageField(upload_to=partial(get_upload_path,img_type='tiny_thumbnail'), blank=True, null=True)
+    thumbnail = models.ImageField(upload_to=partial(get_upload_path,img_type='thumbnail'), blank=True, null=True)
+    image1 = models.ImageField(upload_to=partial(get_upload_path,img_type='image1'), blank=True, null=True)
+    image2 = models.ImageField(upload_to=partial(get_upload_path,img_type='image2'), blank=True, null=True)
 
     def __str__(self) -> str:
         return self.title
