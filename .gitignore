@@ -164,7 +164,7 @@ cython_debug/
 /media
 /openapi-generator-cli.jar
 /credentials.json
-/prod-credentials.json
+/*.env
 
 /test.js
 /test.py

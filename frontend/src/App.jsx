@@ -2,10 +2,9 @@ import React, { useState, useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl';
 import LeftSidebar from './LeftSidebar';
 import RightSidebar from './RightSidebar';
-import credentials from '../../credentials.json'
 
 export const COLOR = '#ffe42f';
-mapboxgl.accessToken = credentials.ACCESS_TOKEN;
+mapboxgl.accessToken = "pk.eyJ1IjoibWNoYXR6aXMiLCJhIjoiY2xqc2JmMzVpMGI3cjNlbjBibTF0eW5hMSJ9.jRPaznp02gYmnLNdSblBCA";
 
 const layerIds = JSON.parse(document.getElementById('layerIds').textContent);
 

@@ -12,6 +12,7 @@
 
     <body>
         {{bar_types|json_script:'layerIds'}}
+        {{settings|json_script:'settings'}}
         <div id="header">
             <div id="auth">
                 {% if request.user.is_authenticated %}

@@ -192,6 +192,9 @@ components:
     Bar:
       type: object
       properties:
+        id:
+          type: integer
+          readOnly: true
         feature_type:
           $ref: '#/components/schemas/FeatureTypeEnum'
         longitude:
@@ -208,12 +211,39 @@ components:
         description:
           type: string
           maxLength: 120
-        image_url:
+        date_created:
+          type: string
+          format: date-time
+          readOnly: true
+        last_modified:
+          type: string
+          format: date-time
+          readOnly: true
+        tiny_thumbnail:
           type: string
           format: uri
           nullable: true
-          maxLength: 200
+        thumbnail:
+          type: string
+          format: uri
+          nullable: true
+        image1:
+          type: string
+          format: uri
+          nullable: true
+        image2:
+          type: string
+          format: uri
+          nullable: true
+        bar_type:
+          type: array
+          items:
+            type: integer
       required:
+      - bar_type
+      - date_created
+      - id
+      - last_modified
       - latitude
       - longitude
       - title

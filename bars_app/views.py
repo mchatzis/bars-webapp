@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from bars_app.models import BarType
+from bars.settings import HOST_IP, HOST_PORT
 
 
 class HomeView(TemplateView):
@@ -12,6 +13,10 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         bar_types = BarType.objects.values_list('type', flat=True)
         context["bar_types"] = list(bar_types)
+        context["settings"] = {
+            "HOST_IP":HOST_IP, 
+            "HOST_PORT":HOST_PORT
+            }
         return context
 
 class RegisterView(CreateView):
