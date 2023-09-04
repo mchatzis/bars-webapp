@@ -6,7 +6,9 @@ services:
     env_file:
       - .db.env
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      # First $ escapes second $. 
+      # Hence, compose will not try to subsitute
+      test: pg_isready -U $$POSTGRES_USER
       interval: 1s
       timeout: 2s
       retries: 3
