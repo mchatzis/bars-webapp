@@ -171,3 +171,5 @@ cython_debug/
 
 /static/index-bundle.js
 
+*.sql
+
