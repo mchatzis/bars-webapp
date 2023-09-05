@@ -168,6 +168,7 @@ cython_debug/
 
 /test.js
 /test.py
+/env.sh
 
 /static/index-bundle.js
 

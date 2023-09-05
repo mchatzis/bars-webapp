@@ -6,8 +6,8 @@ services:
     env_file:
       - .db.env
     healthcheck:
-      # First $ escapes second $. 
-      # Hence, compose will not try to subsitute
+      # First '$'' escapes the second '$'. 
+      # Hence, compose will not try to substitute
       test: pg_isready -U $$POSTGRES_USER
       interval: 1s
       timeout: 2s
@@ -33,6 +33,7 @@ services:
         condition: service_healthy
     env_file:
       - .dev.env
+      - .db.env
     ports:
       - 8000:8000
 
