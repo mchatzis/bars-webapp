@@ -1,4 +1,5 @@
 from django.db import models
+from .aws_storage import MediaStorage
 from functools import partial
 import os
 
@@ -26,10 +27,10 @@ class Bar(models.Model):
     bar_type = models.ManyToManyField(BarType)
     date_created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
-    tiny_thumbnail = models.ImageField(upload_to=partial(get_upload_path,img_type='tiny_thumbnail'), blank=True, null=True)
-    thumbnail = models.ImageField(upload_to=partial(get_upload_path,img_type='thumbnail'), blank=True, null=True)
-    image1 = models.ImageField(upload_to=partial(get_upload_path,img_type='image1'), blank=True, null=True)
-    image2 = models.ImageField(upload_to=partial(get_upload_path,img_type='image2'), blank=True, null=True)
+    tiny_thumbnail = models.ImageField(upload_to=partial(get_upload_path,img_type='tiny_thumbnail'), blank=True, null=True, storage=MediaStorage)
+    thumbnail = models.ImageField(upload_to=partial(get_upload_path,img_type='thumbnail'), blank=True, null=True, storage=MediaStorage)
+    image1 = models.ImageField(upload_to=partial(get_upload_path,img_type='image1'), blank=True, null=True, storage=MediaStorage)
+    image2 = models.ImageField(upload_to=partial(get_upload_path,img_type='image2'), blank=True, null=True, storage=MediaStorage)
 
     def __str__(self) -> str:
         return self.title

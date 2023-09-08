@@ -16,6 +16,8 @@ services:
       - 5000:5432
     volumes:
       - pg_data:/var/lib/postgresql/data
+    # Todo:
+    # - "POSTGRES_HOST_AUTH_METHOD=trust" ???
   
   admin:
     image: adminer

@@ -169,6 +169,9 @@ cython_debug/
 /test.js
 /test.py
 /env.sh
+/Makefile
+/todo
+/aws-credentials.json
 
 /static/index-bundle.js
 

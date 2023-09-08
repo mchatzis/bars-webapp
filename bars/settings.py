@@ -139,6 +139,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+
 # LOGIN
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
@@ -152,6 +153,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-# Media
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = "media/"
+#AWS
+AWS_S3_ACCESS_KEY_ID=os.environ.get('AWS_S3_ACCESS_KEY_ID')
+AWS_S3_SECRET_ACCESS_KEY=os.environ.get('AWS_S3_SECRET_ACCESS_KEY')
