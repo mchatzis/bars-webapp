@@ -1,5 +1,6 @@
 import React from "react";
 import { COLOR } from "./App";
+import { getImage } from "./helpers";
 
 
 function to_geojson(dbData){
@@ -14,9 +15,13 @@ function to_geojson(dbData){
                 ]
             },
             "properties": {
+                "id": feature.id,
                 "title": feature.title,
                 "description": feature.description,
-                "image_url": feature.imageUrl
+                "tinyThumbnail": feature.tinyThumbnail,
+                "thumbnail": feature.thumbnail,
+                "image1": feature.image1,
+                "image2": feature.image2
             }
         }
     })
@@ -27,10 +32,23 @@ function to_geojson(dbData){
     }
 }
 
-async function fetchAddLayer(map, apiInst, layerId, existingLayerIds){
-            // TODO: Handle server bad responses!
-                return apiInst.barsList({type:layerId})
-                .then(data => to_geojson(data))
+async function fetchAddLayer(map, data, apiInst, layerId){
+            // TODO: Handle server bad responses
+                await apiInst.barsList({type:layerId})
+                .then(dbData => {
+                    // First convert array of places to dictionary with place id as key
+                    // then store db data for future use
+                    var dataRefactored = {}
+                    dbData.reduce((accum, current) => {
+                        accum[current.id] = current
+                        return accum
+                    }, dataRefactored)
+                    data.current[layerId] = dataRefactored
+
+                    // convert to geojson original db data
+                    var geojsonData = to_geojson(dbData)
+                    return geojsonData
+                })
                 .then(geojsonData => {
                     map.current.addSource(layerId, {
                         type: "geojson",
@@ -47,10 +65,11 @@ async function fetchAddLayer(map, apiInst, layerId, existingLayerIds){
                             }
                     })
                 })
-                .then(()=> existingLayerIds.current.push(layerId))
 }
 
-export default function FilterButton({map, apiInst, layerId, existingLayerIds, activeButton, setActiveButton, setClickedFeature}){
+
+
+export default function FilterButton({map, data, client, apiInst, layerId, existingLayerIds, activeButton, setActiveButton, setClickedFeature}){
 
     const inactiveButtonStyle = {
         position:'relative'
@@ -62,8 +81,10 @@ export default function FilterButton({map, apiInst, layerId, existingLayerIds, a
     }
 
     async function handleClick(){
+        // Load layer unless already loaded
         if (map.current.getLayer(layerId) === undefined){
-            await fetchAddLayer(map, apiInst, layerId, existingLayerIds)
+            await fetchAddLayer(map, data, apiInst, layerId);
+            existingLayerIds.current.push(layerId);
         }
 
         // Make only the chosen layer visible
@@ -71,12 +92,25 @@ export default function FilterButton({map, apiInst, layerId, existingLayerIds, a
         map.current.setLayoutProperty(layerId, 'visibility', 'visible')
         setActiveButton(layerId)
         setClickedFeature(null)
+
+        // Prefetch tiny thumbnail and thumbnail (to avoid UI latency due to fetching)
+        for (let id in data.current[layerId]) {
+            let place = data.current[layerId][id]
+            if (place.tinyThumbnail) {
+                getImage(client, place.tinyThumbnail)
+                .then(url => place.tinyThumbnailUrl = url)
+            }
+            if (place.thumbnail) {
+                getImage(client, place.thumbnail)
+                .then(url => place.thumbnailUrl = url)
+            }
+        }
     }
 
     return(
         <>
             <button 
-                onClick={() => handleClick()}
+                onClick={handleClick}
                 style={activeButton===layerId ? activeButtonStyle : inactiveButtonStyle}>
                      {layerId}
             </button>

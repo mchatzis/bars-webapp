@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from bars_app.models import BarType
-from bars.settings import HOST_IP, HOST_PORT
+from bars.settings import HOST_IP, HOST_PORT, AWS_S3_READONLY_KEY_ID, AWS_S3_READONLY_SECRET_ACCESS_KEY
 
 
 class HomeView(TemplateView):
@@ -14,8 +14,10 @@ class HomeView(TemplateView):
         bar_types = BarType.objects.values_list('type', flat=True)
         context["bar_types"] = list(bar_types)
         context["settings"] = {
-            "HOST_IP":HOST_IP, 
-            "HOST_PORT":HOST_PORT
+            "HOST_IP": HOST_IP, 
+            "HOST_PORT": HOST_PORT,
+            "AWS_S3_READONLY_KEY_ID": AWS_S3_READONLY_KEY_ID,
+            "AWS_S3_READONLY_SECRET_ACCESS_KEY": AWS_S3_READONLY_SECRET_ACCESS_KEY
             }
         return context
 
