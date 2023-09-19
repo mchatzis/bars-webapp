@@ -14,14 +14,21 @@
         {{bar_types|json_script:'layerIds'}}
         {{settings|json_script:'settings'}}
         <div id="header">
+            <div id="title">
+                <h2> Thessaloniki bars </h2>
+            </div>
             <div id="auth">
                 {% if request.user.is_authenticated %}
                     <button onclick="window.location.href = '{% url "logout" %}?next={{ request.path }}'">Logout</button>
                 {% else %}
-                    <button onclick="window.location.href = '{% url 'login' %}?next={{ request.path }}'">Login</button>
+                    <img
+                        id="login"
+                        src={% static 'login.png' %}
+                        onclick="window.location.href = '{% url 'login' %}?next={{ request.path }}'"
+                        title="login">
+                    </img>
                 {% endif %}
             </div>
-            <h2 id="title"> Thessaloniki bars </h1>
         </div>
 
         <div id="root">

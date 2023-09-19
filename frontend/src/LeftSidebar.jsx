@@ -7,7 +7,7 @@ export default function LeftSidebar(props){
     const existingLayerIds = useRef([])
 
     return (
-        <>
+        <div id="left-sidebar">
             {props.layerIds.map((layerId) =>{
                 return (
                     <div key={layerId}>
@@ -25,6 +25,6 @@ export default function LeftSidebar(props){
                     </div>
                 );
             })}
-        </>
+        </div>
     );
 }

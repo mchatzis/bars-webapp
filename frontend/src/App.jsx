@@ -37,13 +37,17 @@ export default function App({apiInst, client}) {
 
 
         map.current.on('load', () => {
-            // Add popup
-            const popup = new mapboxgl.Popup({
-                closeButton: false,
-                closeOnClick: false
-            })
+            map.current.on('render', () => {
+                map.current.resize();
+            });
 
             map.current.on('mouseenter', layerIds, (e) => {
+                const popup = new mapboxgl.Popup({
+                    closeButton: false,
+                    closeOnClick: false,
+                    className: "popup"
+                })
+
                 map.current.getCanvas().style.cursor = 'pointer';
 
                 const feature = e.features[0]
@@ -52,13 +56,16 @@ export default function App({apiInst, client}) {
                 const layerId = feature.layer.id
                 const featureId = feature.properties.id
                 const place = data.current[layerId][featureId]
-                const html = '<img src="' + place.tinyThumbnailUrl + '" width="50" height="50" >'
+                const html = '<img src="' + place.tinyThumbnailUrl + '" width="55" height="55" >'
 
                 popup.setLngLat(coords).setHTML(html).addTo(map.current);
             });
             map.current.on('mouseleave', layerIds, () => {
                 map.current.getCanvas().style.cursor = '';
-                popup.remove();
+
+                /** Check if there is already a popup on the map and if so, remove it */
+                const popUps = document.getElementsByClassName('mapboxgl-popup');
+                if (popUps[0]) popUps[0].remove();
             })
             map.current.on('click', layerIds, (e) => {
                 const feature = e.features[0]
@@ -69,28 +76,22 @@ export default function App({apiInst, client}) {
 
                 setClickedFeature(feature)
             })
+            map.current.on('movestart', () => setClickedFeature(null))
         })
     }, [])
 
     return (
         <>
             <div ref={map_container} id="map"></div>
-            <div id="left-sidebar">
-                <LeftSidebar
-                    map={map}
-                    data={data}
-                    client={client}
-                    apiInst={apiInst}
-                    layerIds={layerIds}
-                    setClickedFeature={setClickedFeature}
-                />
-            </div>
-            <div id="right-sidebar">
-                <RightSidebar
-                    map={map}
-                    clickedFeature={clickedFeature}
-                />
-            </div>
+            <LeftSidebar
+                map={map}
+                data={data}
+                client={client}
+                apiInst={apiInst}
+                layerIds={layerIds}
+                setClickedFeature={setClickedFeature}
+            />
+            {clickedFeature ? <RightSidebar map={map} clickedFeature={clickedFeature}/> : null}
         </>
     )
 }

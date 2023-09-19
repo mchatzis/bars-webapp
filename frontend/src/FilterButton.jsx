@@ -71,15 +71,6 @@ async function fetchAddLayer(map, data, apiInst, layerId){
 
 export default function FilterButton({map, data, client, apiInst, layerId, existingLayerIds, activeButton, setActiveButton, setClickedFeature}){
 
-    const inactiveButtonStyle = {
-        position:'relative'
-    }
-    const activeButtonStyle = {
-        ...inactiveButtonStyle,
-        backgroundColor:'black',
-        color: COLOR
-    }
-
     async function handleClick(){
         // Load layer unless already loaded
         if (map.current.getLayer(layerId) === undefined){
@@ -110,9 +101,12 @@ export default function FilterButton({map, data, client, apiInst, layerId, exist
     return(
         <>
             <button 
+                className="button"
+                role="button"
                 onClick={handleClick}
-                style={activeButton===layerId ? activeButtonStyle : inactiveButtonStyle}>
-                     {layerId}
+                disabled={activeButton === layerId}
+            >
+                {layerId}
             </button>
         </>
     )
