@@ -90,6 +90,26 @@ body {
   padding-left: 5;
   word-wrap: break-word;
 }
+#directions_button {
+  position: absolute;
+  bottom: 10px;
+  background-color: transparent;
+  border: 1px solid #dedede;
+  border-radius: .5rem;
+  box-sizing: border-box;
+  color:  #dedede;
+  font-size: .84rem;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+#directions_button:hover {
+  background-color: #dedede;
+  color: black;
+}
 
 .popup .mapboxgl-popup-content{
   background-color: black;

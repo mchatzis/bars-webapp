@@ -34,7 +34,7 @@ const router = createBrowserRouter(
     [
       {
         path:"/",
-        element:<App apiInst={apiInst} client={awsClient}/>,
+        element:<App apiInst={apiInst} client={awsClient} settings={settings}/>,
       }
     ],
     {basename: "/"},

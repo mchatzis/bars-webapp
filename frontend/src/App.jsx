@@ -5,18 +5,18 @@ import RightSidebar from './RightSidebar';
 
 
 export const COLOR = '#ffe42f';
-mapboxgl.accessToken = "pk.eyJ1IjoibWNoYXR6aXMiLCJhIjoiY2xqc2JmMzVpMGI3cjNlbjBibTF0eW5hMSJ9.jRPaznp02gYmnLNdSblBCA";
 
 const layerIds = JSON.parse(document.getElementById('layerIds').textContent);
 
 
-export default function App({apiInst, client}) {
+export default function App({apiInst, client, settings}) {
     const map_container = useRef(null)
     const map = useRef(null)
     const data = useRef({}) // Our own rep of feature data, seperate from mapbox's one
     const [clickedFeature, setClickedFeature] = useState(null)
 
     useEffect(() => {
+        mapboxgl.accessToken = settings.MAPBOX_TOKEN
         map.current = new mapboxgl.Map({
             container: map_container.current,
             style: 'mapbox://styles/mchatzis/clk130qw500bo01qy3bt7frrx',
