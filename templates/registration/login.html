@@ -9,7 +9,7 @@
         <form method="post">
             {{ form.as_p }}
             <button type="submit">login</button>
-            <p> Not registered? Register <a href="{% url 'bars_app:register' %}?next={{ next }}">here</a></p>
+            {% comment %} <p> Not registered? Register <a href="{% url 'bars_app:register' %}?next={{ next }}">here</a></p> {% endcomment %}
             {% csrf_token %}
         </form>
     </body>

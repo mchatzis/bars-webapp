@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl';
 import LeftSidebar from './LeftSidebar';
 import RightSidebar from './RightSidebar';
+import HdImageBox from './HdImageBox';
 
 
 export const COLOR = '#ffe42f';
@@ -14,6 +15,7 @@ export default function App({apiInst, client, settings}) {
     const map = useRef(null)
     const data = useRef({}) // Our own rep of feature data, seperate from mapbox's one
     const [clickedFeature, setClickedFeature] = useState(null)
+    const [displayHdImg, setDisplayHdImg] = useState(false)
 
     useEffect(() => {
         mapboxgl.accessToken = settings.MAPBOX_TOKEN
@@ -76,7 +78,10 @@ export default function App({apiInst, client, settings}) {
 
                 setClickedFeature(feature)
             })
-            map.current.on('movestart', () => setClickedFeature(null))
+            map.current.on('movestart', () => {
+                setClickedFeature(null)
+                setDisplayHdImg(null)
+            })
         })
     }, [])
 
@@ -91,7 +96,18 @@ export default function App({apiInst, client, settings}) {
                 layerIds={layerIds}
                 setClickedFeature={setClickedFeature}
             />
-            {clickedFeature ? <RightSidebar map={map} clickedFeature={clickedFeature}/> : null}
+            {clickedFeature ? <RightSidebar 
+                                    map={map} 
+                                    client={client} 
+                                    clickedFeature={clickedFeature} 
+                                    data={data}
+                                    setDisplayHdImg={setDisplayHdImg}
+                                /> : null}
+            {displayHdImg && clickedFeature? <HdImageBox
+                                    data={data}
+                                    clickedFeature={clickedFeature}
+                                    apiInst={apiInst}
+                                    /> : null}
         </>
     )
 }
