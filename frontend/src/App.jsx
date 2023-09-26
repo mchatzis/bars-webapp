@@ -29,12 +29,10 @@ export default function App({apiInst, client, settings}) {
         });
 
         const elm = document.createElement('div')
-        elm.style.backgroundImage = 'url(' + apiInst.configuration.basePath + '/static/tower.png)'
-        elm.style.width = `50px`;
-        elm.style.height = `57px`;
-        elm.style.backgroundSize = '100%';
+        elm.style.backgroundImage = 'url(' + apiInst.configuration.basePath + '/static/whitetower.png)'
+        elm.setAttribute("id", "tower");
         const marker1 = new mapboxgl.Marker(elm)
-            .setLngLat([22.948380, 40.626352])
+            .setLngLat([22.9478, 40.62547])
             .addTo(map.current);
 
 
@@ -96,6 +94,12 @@ export default function App({apiInst, client, settings}) {
                 layerIds={layerIds}
                 setClickedFeature={setClickedFeature}
             />
+            {displayHdImg && clickedFeature? <HdImageBox
+                        data={data}
+                        clickedFeature={clickedFeature}
+                        apiInst={apiInst}
+                        setDisplayHdImg={setDisplayHdImg}
+                        /> : null}
             {clickedFeature ? <RightSidebar 
                                     map={map} 
                                     client={client} 
@@ -103,11 +107,7 @@ export default function App({apiInst, client, settings}) {
                                     data={data}
                                     setDisplayHdImg={setDisplayHdImg}
                                 /> : null}
-            {displayHdImg && clickedFeature? <HdImageBox
-                                    data={data}
-                                    clickedFeature={clickedFeature}
-                                    apiInst={apiInst}
-                                    /> : null}
+
         </>
     )
 }

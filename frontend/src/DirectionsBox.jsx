@@ -20,7 +20,7 @@ export default function DirectionsBox(props){
 
     return (
         <button onClick={handleClick} id="directions_button">
-            Directions
+            Directions&gt;&gt;
         </button>
     )
 }

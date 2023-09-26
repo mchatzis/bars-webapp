@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 
 
-export default function HdImageBox({data, clickedFeature, apiInst}){
+export default function HdImageBox({data, clickedFeature, apiInst, setDisplayHdImg}){
     const [imgNum, setImgNum] = useState(1)
 
     const layerId = clickedFeature.layer.id
@@ -11,6 +11,7 @@ export default function HdImageBox({data, clickedFeature, apiInst}){
 
     const leftBracketUrl = apiInst.configuration.basePath + '/static/leftbracket.png'
     const rightBracketUrl = apiInst.configuration.basePath + '/static/rightbracket.png'
+    const quitUrl = apiInst.configuration.basePath + '/static/quit.png'
 
 
     return (
@@ -29,11 +30,17 @@ export default function HdImageBox({data, clickedFeature, apiInst}){
                 className="bracket" 
                 src={rightBracketUrl}
                 onClick={()=>{
-                    if (imgNum < 6){
+                    if (imgNum < 5){
                         setImgNum(imgNum + 1)
                     }
                 }}
             />
+            <img 
+                id="quit" 
+                src={quitUrl}
+                onClick={()=>{
+                  setDisplayHdImg(false)  
+                }}/>
         </div>
     )
 }

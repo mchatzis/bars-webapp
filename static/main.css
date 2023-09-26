@@ -54,12 +54,19 @@ h2 {
 .mapboxgl-ctrl-bottom-right {
   display: none !important;
 }
+#tower{
+  background-size: 110%;
+  height: 60;
+  width: 55;
+}
 body {
     background-color: rgb(0, 0, 0);
   }
 #left-sidebar {
   position: absolute;
   left: 0;
+  top: 20;
+  left: 10;
 }
 #right-sidebar {
   position: absolute;  
@@ -79,6 +86,26 @@ body {
   top: 0;
   width: 90%;
   aspect-ratio: 1/1;
+  transition: transform 180ms ease-in-out;
+}
+#image_box:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+}
+#image_box:active {
+  animation-name: click-animation;
+  animation-duration: 0.17s;
+}
+@keyframes click-animation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 #feature_title{
   text-align: center;
@@ -104,6 +131,7 @@ body {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  margin-left: 5px;
 }
 
 #directions_button:hover {
@@ -118,7 +146,16 @@ body {
 .popup .mapboxgl-popup-content img{
   border-radius: 5px;
 }
-.popup .mapboxgl-popup-tip{
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip{
+  border-right-color: black;
+}
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip{
+  border-left-color: black;
+}
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip{
+  border-bottom-color: black;
+}
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip{
   border-top-color: black;
 }
 
@@ -191,6 +228,17 @@ body {
   transition: transform 180ms ease-in-out;
 }
 .bracket:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+#quit{
+  position:absolute;
+  bottom: -60px;
+  height: 16%;
+  width: 9%;
+  transition: transform 180ms ease-in-out;
+}
+#quit:hover{
   cursor: pointer;
   transform: scale(1.2);
 }
