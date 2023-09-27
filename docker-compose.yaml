@@ -36,9 +36,21 @@ services:
     env_file:
       - .dev.env
       - .db.env
-    ports:
-      - 8000:8000
+    expose:
+      - 8000
+    volumes:
+      - static_volume:/bars-webapp/collectedstatic
+  
+  nginx:
+    build: ./nginx
+    ports: 
+      - 1337:80
+    depends_on:
+      - web
+    volumes:
+      - static_volume:/bars-webapp/collectedstatic
 
 volumes:
   pg_data:
     name: bars-data
+  static_volume:

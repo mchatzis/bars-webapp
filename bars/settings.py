@@ -24,13 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
+# Note: environ.get will return a string, we want bool
+DEBUG = os.environ.get("DEBUG", default="False") == 'True'
 
 
 HOST_IP = os.environ.get('HOST_IP')
 HOST_PORT = os.environ.get('HOST_PORT')
-ALLOWED_HOSTS = [HOST_IP]
-
+ALLOWED_HOSTS = ["127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:1337"]
+# SECURE_PROXY_SSL_HEADER = ("X_FORWARDED_PROTO", "https")
 
 
 # Application definition
@@ -133,6 +135,7 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+STATIC_ROOT= os.environ.get('STATIC_ROOT')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
