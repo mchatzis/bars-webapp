@@ -10,12 +10,14 @@ RUN apt-get install -yq nodejs
 # set environment variables
 ENV PYTHONUNBUFFERED=1
 ENV PROJ_ROOT=/bars-webapp
-RUN mkdir $PROJ_ROOT
-RUN mkdir $PROJ_ROOT/collectstatic
+RUN mkdir -p $PROJ_ROOT/collectstatic
+
 WORKDIR $PROJ_ROOT
+ADD ./requirements.txt .
+RUN pip3 install -r requirements.txt
+
 COPY . .
 
-RUN pip3 install --no-cache-dir -r requirements.txt
 RUN npm install\
     && npm run build
 
