@@ -177,3 +177,5 @@ cython_debug/
 
 *.sql
 
+/docker-compose-dev.yaml
+/gunicorn-dev.conf.py

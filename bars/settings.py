@@ -28,10 +28,10 @@ SECRET_KEY = os.environ.get('DJANGO_KEY')
 DEBUG = os.environ.get("DEBUG", default="False") == 'True'
 
 
-HOST_IP = os.environ.get('HOST_IP')
-HOST_PORT = os.environ.get('HOST_PORT')
-ALLOWED_HOSTS = ["127.0.0.1"]
-CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:1337"]
+HOST_IP = os.environ.get('HOST_IP', default="127.0.0.1")
+HOST_PORT = os.environ.get('HOST_PORT', default="8000")
+ALLOWED_HOSTS = [HOST_IP]
+CSRF_TRUSTED_ORIGINS = ["http://" + HOST_IP + ":" + HOST_PORT]
 # SECURE_PROXY_SSL_HEADER = ("X_FORWARDED_PROTO", "https")
 
 

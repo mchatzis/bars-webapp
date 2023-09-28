@@ -15,7 +15,6 @@ RUN mkdir $PROJ_ROOT/collectstatic
 WORKDIR $PROJ_ROOT
 COPY . .
 
-
 RUN pip3 install --no-cache-dir -r requirements.txt
 RUN npm install\
     && npm run build
