@@ -12,7 +12,7 @@ const settings = JSON.parse(document.getElementById('settings').textContent);
 const apiInst = new BarsApi(
     new Configuration(
       {
-        basePath: 'http://' + settings.HOST_IP + ':' + settings.HOST_PORT,
+        basePath: 'http://' + settings.HOST_NAME,
         headers:{'X-CSRFToken':Cookies.get('csrftoken')},
       },
     )
