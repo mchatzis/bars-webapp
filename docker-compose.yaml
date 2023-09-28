@@ -37,7 +37,7 @@ services:
     expose:
       - 8000
     volumes:
-      - static_volume:/bars-webapp/collectedstatic
+      - static_volume:/home/ec2-user/app/bars-webapp/collectedstatic
   
   nginx:
     build: ./nginx
@@ -46,7 +46,7 @@ services:
     depends_on:
       - web
     volumes:
-      - static_volume:/bars-webapp/collectedstatic
+      - static_volume:/home/ec2-user/app/bars-webapp/collectedstatic
 
 volumes:
   pg_data:

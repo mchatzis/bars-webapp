@@ -9,8 +9,8 @@ RUN apt-get install -yq nodejs
 
 # set environment variables
 ENV PYTHONUNBUFFERED=1
-ENV PROJ_ROOT=/bars-webapp
-RUN mkdir -p $PROJ_ROOT/collectstatic
+ENV PROJ_ROOT=/home/ec2-user/app/bars-webapp
+RUN mkdir -p $PROJ_ROOT/collectedstatic
 
 WORKDIR $PROJ_ROOT
 ADD ./requirements.txt .
