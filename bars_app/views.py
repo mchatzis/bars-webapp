@@ -14,7 +14,7 @@ class HomeView(TemplateView):
         bar_types = BarType.objects.values_list('type', flat=True)
         context["bar_types"] = list(bar_types)
         context["settings"] = {
-            "HOST_NAME": HOST_NAME,
+            "HOST_NAME": HOST_NAME[1:], # remove leading dot
             "HOST_IP": HOST_IP, 
             "HOST_PORT": HOST_PORT,
             "AWS_S3_READONLY_KEY_ID": AWS_S3_READONLY_KEY_ID,
