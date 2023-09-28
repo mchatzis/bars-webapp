@@ -21,7 +21,10 @@ function to_geojson(dbData){
                 "tinyThumbnail": feature.tinyThumbnail,
                 "thumbnail": feature.thumbnail,
                 "image1": feature.image1,
-                "image2": feature.image2
+                "image2": feature.image2,
+                "image3": feature.image3,
+                "image4": feature.image4,
+                "image5": feature.image5                
             }
         }
     })

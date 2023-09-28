@@ -100,6 +100,24 @@ export interface Bar {
     image2?: string | null;
     /**
      * 
+     * @type {string}
+     * @memberof Bar
+     */
+    image3?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Bar
+     */
+    image4?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Bar
+     */
+    image5?: string | null;
+    /**
+     * 
      * @type {Array<number>}
      * @memberof Bar
      */
@@ -144,6 +162,9 @@ export function BarFromJSONTyped(json: any, ignoreDiscriminator: boolean): Bar {
         'thumbnail': !exists(json, 'thumbnail') ? undefined : json['thumbnail'],
         'image1': !exists(json, 'image1') ? undefined : json['image1'],
         'image2': !exists(json, 'image2') ? undefined : json['image2'],
+        'image3': !exists(json, 'image3') ? undefined : json['image3'],
+        'image4': !exists(json, 'image4') ? undefined : json['image4'],
+        'image5': !exists(json, 'image5') ? undefined : json['image5'],
         'barType': json['bar_type'],
     };
 }
@@ -166,6 +187,9 @@ export function BarToJSON(value?: Bar | null): any {
         'thumbnail': value.thumbnail,
         'image1': value.image1,
         'image2': value.image2,
+        'image3': value.image3,
+        'image4': value.image4,
+        'image5': value.image5,
         'bar_type': value.barType,
     };
 }

@@ -1,4 +1,3 @@
-.openapi-generator-ignore
 apis/BarTypesApi.ts
 apis/BarsApi.ts
 apis/SchemaApi.ts

@@ -7,6 +7,9 @@ class BarSerializer(ModelSerializer):
     thumbnail = ImageField(use_url=False)
     image1 = ImageField(use_url=False)
     image2 = ImageField(use_url=False)
+    image3 = ImageField(use_url=False)
+    image4 = ImageField(use_url=False)
+    image5 = ImageField(use_url=False)
     
     class Meta:
         model=Bar
