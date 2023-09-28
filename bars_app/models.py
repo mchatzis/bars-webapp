@@ -31,6 +31,9 @@ class Bar(models.Model):
     thumbnail = models.ImageField(upload_to=partial(get_upload_path,img_type='thumbnail'), blank=True, null=True, storage=MediaStorage)
     image1 = models.ImageField(upload_to=partial(get_upload_path,img_type='image1'), blank=True, null=True, storage=MediaStorage)
     image2 = models.ImageField(upload_to=partial(get_upload_path,img_type='image2'), blank=True, null=True, storage=MediaStorage)
+    image3 = models.ImageField(upload_to=partial(get_upload_path,img_type='image3'), blank=True, null=True, storage=MediaStorage)
+    image4 = models.ImageField(upload_to=partial(get_upload_path,img_type='image4'), blank=True, null=True, storage=MediaStorage)
+    image5 = models.ImageField(upload_to=partial(get_upload_path,img_type='image5'), blank=True, null=True, storage=MediaStorage)
 
     def __str__(self) -> str:
         return self.title

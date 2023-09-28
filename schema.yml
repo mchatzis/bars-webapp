@@ -235,6 +235,18 @@ components:
           type: string
           format: uri
           nullable: true
+        image3:
+          type: string
+          format: uri
+          nullable: true
+        image4:
+          type: string
+          format: uri
+          nullable: true
+        image5:
+          type: string
+          format: uri
+          nullable: true
         bar_type:
           type: array
           items:

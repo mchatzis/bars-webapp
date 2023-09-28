@@ -17,7 +17,10 @@ class BarAdmin(admin.ModelAdmin):
         'tiny_thumbnail',
         'thumbnail',
         'image1',
-        'image2'
+        'image2',
+        'image3',
+        'image4',
+        'image5'
     )
     
     def get_bartype(self, obj):
