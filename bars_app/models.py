@@ -23,7 +23,7 @@ class Bar(models.Model):
     longitude = models.DecimalField("Longitude", max_digits=10, decimal_places=6)
     latitude = models.DecimalField("Latitude", max_digits=10, decimal_places=6)
     title = models.CharField(max_length=30)
-    description = models.TextField(max_length=120, blank=True)
+    description = models.TextField(max_length=400, blank=True)
     bar_type = models.ManyToManyField(BarType)
     date_created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
