@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('DJANGO_KEY')
 DEBUG = os.environ.get("DEBUG", default="False") == 'True'
 
 
-HOST_NAME = '.' + os.environ.get('HOST_NAME', default="localhost")
+HOST_NAME = os.environ.get('HOST_NAME', default="localhost")
 HOST_IP = os.environ.get('HOST_IP', default="127.0.0.1")
 HOST_PORT = os.environ.get('HOST_PORT', default="80")
 ALLOWED_HOSTS = [HOST_NAME]
