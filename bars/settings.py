@@ -30,7 +30,7 @@ DEBUG = os.environ.get("DEBUG", default="False") == 'True'
 
 HOST_NAME = '.' + os.environ.get('HOST_NAME', default="localhost")
 HOST_IP = os.environ.get('HOST_IP', default="127.0.0.1")
-HOST_PORT = os.environ.get('HOST_PORT', default="8000")
+HOST_PORT = os.environ.get('HOST_PORT', default="80")
 ALLOWED_HOSTS = [HOST_NAME]
 CSRF_TRUSTED_ORIGINS = ["http://" + HOST_NAME]
 # SECURE_PROXY_SSL_HEADER = ("X_FORWARDED_PROTO", "https")
@@ -162,6 +162,7 @@ AWS_S3_ACCESS_KEY_ID=os.environ.get('AWS_S3_ACCESS_KEY_ID')
 AWS_S3_SECRET_ACCESS_KEY=os.environ.get('AWS_S3_SECRET_ACCESS_KEY')
 AWS_S3_READONLY_KEY_ID=os.environ.get('AWS_S3_READONLY_KEY_ID')
 AWS_S3_READONLY_SECRET_ACCESS_KEY=os.environ.get('AWS_S3_READONLY_SECRET_ACCESS_KEY')
+S3_BUCKET_NAME=os.environ.get('S3_BUCKET_NAME')
 
 # Mapbox
 MAPBOX_TOKEN=os.environ.get('MAPBOX_TOKEN')

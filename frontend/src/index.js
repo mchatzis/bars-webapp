@@ -28,7 +28,7 @@ const awsClient = new S3Client({
         secretAccessKey: settings.AWS_S3_READONLY_SECRET_ACCESS_KEY
     }
 })
-awsClient.s3_bucket = "bars-bucket01"
+awsClient.s3_bucket = settings.S3_BUCKET_NAME
 
 const router = createBrowserRouter(
     [
