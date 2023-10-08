@@ -205,11 +205,11 @@ body {
 #hd_box{
   position: absolute;
   background-color: transparent;
-  left:90;
+  left:150;
   right: 100;
-  top:20;
-  height: 80%;
-  width: 65%;
+  top:35;
+  height: 75%;
+  width: 55%;
   display: flex;  
   align-items: center;
   justify-content: center;
@@ -218,9 +218,10 @@ body {
 #hd_img{
   height: auto;
   width: auto;
-  overflow: hidden;
+  max-height: 100%;
+  max-width: 100%;
   background-color: black;
-  padding: 40;
+  padding: 20;
 }
 .bracket{
   margin-left: 20;
