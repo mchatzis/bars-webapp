@@ -235,9 +235,9 @@ body {
 }
 #quit{
   position:absolute;
-  bottom: -60px;
-  height: 16%;
-  width: 9%;
+  bottom: -70px;
+  height: 14%;
+  width: 8%;
   transition: transform 180ms ease-in-out;
 }
 #quit:hover{
