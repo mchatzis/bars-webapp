@@ -19,7 +19,7 @@ export default function HdImageBox({data, clickedFeature, apiInst, setDisplayHdI
     const featureId = clickedFeature.properties.id
     const dataPoint = data.current[layerId][featureId]
     const imgUrl = dataPoint["image" + imgNum + "Url"]
-    const nextExists = dataPoint.hasOwnProperty("image" + (imgNum + 1) + "Url")
+    const nextExists = dataPoint["image" + (imgNum + 1)] !== undefined
 
     const leftBracketUrl = apiInst.configuration.basePath + '/static/leftbracket.png'
     const rightBracketUrl = apiInst.configuration.basePath + '/static/rightbracket.png'
