@@ -1,5 +1,16 @@
 import React, { useState } from "react"
 
+const bracketStyle = {
+    marginLeft: 20,
+    backgroundColor: "transparent",
+    height: "10%",
+    width: "6%",
+    transition: "transform 180ms ease-in-out"
+};
+const bracketStyleHidden = {
+    bracketStyle,
+    visibility:"hidden"
+}
 
 export default function HdImageBox({data, clickedFeature, apiInst, setDisplayHdImg}){
     const [imgNum, setImgNum] = useState(1)
@@ -8,6 +19,7 @@ export default function HdImageBox({data, clickedFeature, apiInst, setDisplayHdI
     const featureId = clickedFeature.properties.id
     const dataPoint = data.current[layerId][featureId]
     const imgUrl = dataPoint["image" + imgNum + "Url"]
+    const nextExists = dataPoint.hasOwnProperty("image" + (imgNum + 1) + "Url")
 
     const leftBracketUrl = apiInst.configuration.basePath + '/static/leftbracket.png'
     const rightBracketUrl = apiInst.configuration.basePath + '/static/rightbracket.png'
@@ -24,17 +36,15 @@ export default function HdImageBox({data, clickedFeature, apiInst, setDisplayHdI
                         setImgNum(imgNum - 1)
                     }
                 }}
+                style={imgNum === 1 ? bracketStyleHidden : bracketStyle}
             />
             <img id="hd_img" src={imgUrl}/>
             <img 
                 className="bracket" 
                 src={rightBracketUrl}
-                onClick={()=>{
-                    if (imgNum < 5){
-                        setImgNum(imgNum + 1)
-                    }
-                }}
-            />
+                onClick={()=> setImgNum(imgNum + 1)}
+                style={nextExists ? bracketStyle : bracketStyleHidden}
+                />
             <img 
                 id="quit" 
                 src={quitUrl}
