@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 
 const bracketStyle = {
-    marginLeft: 20,
+    marginLeft: 5,
     backgroundColor: "transparent",
-    height: "10%",
-    width: "6%",
+    height: "12%",
+    width: "8%",
     transition: "transform 180ms ease-in-out"
 };
 const bracketStyleHidden = {

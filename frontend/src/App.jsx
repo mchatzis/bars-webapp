@@ -22,8 +22,8 @@ export default function App({apiInst, client, settings}) {
         map.current = new mapboxgl.Map({
             container: map_container.current,
             style: 'mapbox://styles/mchatzis/clk130qw500bo01qy3bt7frrx',
-            center: [22.945, 40.632], // starting position [lng, lat]
-            zoom: 14, // starting zoom,
+            center: [22.9435, 40.631], // starting position [lng, lat]
+            zoom: 14.4, // starting zoom,
             pitch: 20, // pitch in degrees
             bearing: 40, // bearing in degrees
         });
@@ -56,7 +56,7 @@ export default function App({apiInst, client, settings}) {
                 const layerId = feature.layer.id
                 const featureId = feature.properties.id
                 const place = data.current[layerId][featureId]
-                const html = '<img src="' + place.tinyThumbnailUrl + '" width="55" height="55" >'
+                const html = '<img src="' + place.tinyThumbnailUrl + '" width="75" height="75" >'
 
                 popup.setLngLat(coords).setHTML(html).addTo(map.current);
             });
