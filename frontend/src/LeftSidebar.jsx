@@ -21,6 +21,7 @@ export default function LeftSidebar(props){
                             activeButton={activeButton}
                             setActiveButton={setActiveButton}
                             setClickedFeature={props.setClickedFeature}
+                            setDisplayHdImg={props.setDisplayHdImg}
                         />
                     </div>
                 );

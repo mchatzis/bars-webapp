@@ -72,7 +72,7 @@ async function fetchAddLayer(map, data, apiInst, layerId){
 
 
 
-export default function FilterButton({map, data, client, apiInst, layerId, existingLayerIds, activeButton, setActiveButton, setClickedFeature}){
+export default function FilterButton({map, data, client, apiInst, layerId, existingLayerIds, activeButton, setActiveButton, setClickedFeature, setDisplayHdImg}){
 
     async function handleClick(){
         // Load layer unless already loaded
@@ -86,6 +86,7 @@ export default function FilterButton({map, data, client, apiInst, layerId, exist
         map.current.setLayoutProperty(layerId, 'visibility', 'visible')
         setActiveButton(layerId)
         setClickedFeature(null)
+        setDisplayHdImg(null)
 
         // Prefetch tiny thumbnail and thumbnail (to avoid UI latency due to fetching)
         for (let id in data.current[layerId]) {

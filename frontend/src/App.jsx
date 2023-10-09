@@ -93,6 +93,7 @@ export default function App({apiInst, client, settings}) {
                 apiInst={apiInst}
                 layerIds={layerIds}
                 setClickedFeature={setClickedFeature}
+                setDisplayHdImg={setDisplayHdImg}
             />
             {displayHdImg && clickedFeature? <HdImageBox
                         data={data}

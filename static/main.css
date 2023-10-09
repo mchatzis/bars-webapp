@@ -211,8 +211,8 @@ body {
   left:180;
   right: 100;
   top:35;
-  height: 75%;
-  width: 55%;
+  height: 80%;
+  width: 53%;
   display: flex;  
   align-items: center;
   justify-content: center;
@@ -239,9 +239,10 @@ body {
 }
 #quit{
   position:absolute;
-  bottom: -80px;
-  height: 17%;
-  width: 9%;
+  top: 0  ;
+  right: 26%;
+  height: 10%;
+  width: 4.5%;
   transition: transform 180ms ease-in-out;
 }
 #quit:hover{

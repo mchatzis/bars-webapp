@@ -27,30 +27,32 @@ export default function HdImageBox({data, clickedFeature, apiInst, setDisplayHdI
 
 
     return (
-        <div id="hd_box">
-            <img 
-                className="bracket" 
-                src={leftBracketUrl}
-                onClick={()=>{
-                    if (imgNum > 1){
-                        setImgNum(imgNum - 1)
-                    }
-                }}
-                style={imgNum === 1 ? bracketStyleHidden : bracketStyle}
-            />
-            <img id="hd_img" src={imgUrl}/>
-            <img 
-                className="bracket" 
-                src={rightBracketUrl}
-                onClick={()=> setImgNum(imgNum + 1)}
-                style={nextExists ? bracketStyle : bracketStyleHidden}
+        <>
+            <div id="hd_box">
+                <img 
+                    className="bracket" 
+                    src={leftBracketUrl}
+                    onClick={()=>{
+                        if (imgNum > 1){
+                            setImgNum(imgNum - 1)
+                        }
+                    }}
+                    style={imgNum === 1 ? bracketStyleHidden : bracketStyle}
                 />
+                <img id="hd_img" src={imgUrl}/>
+                <img 
+                    className="bracket" 
+                    src={rightBracketUrl}
+                    onClick={()=> setImgNum(imgNum + 1)}
+                    style={nextExists ? bracketStyle : bracketStyleHidden}
+                    />
+            </div>
             <img 
-                id="quit" 
-                src={quitUrl}
-                onClick={()=>{
-                  setDisplayHdImg(false)  
-                }}/>
-        </div>
+            id="quit" 
+            src={quitUrl}
+            onClick={()=>{
+                setDisplayHdImg(false)  
+            }}/>
+        </>
     )
 }
