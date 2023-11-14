@@ -15,7 +15,6 @@ class HomeView(TemplateView):
         context["bar_types"] = list(bar_types)
         context["settings"] = {
             "HOST_NAME": HOST_NAME,
-            "HOST_IP": HOST_IP, 
             "HOST_PORT": HOST_PORT,
             "AWS_S3_READONLY_KEY_ID": AWS_S3_READONLY_KEY_ID,
             "AWS_S3_READONLY_SECRET_ACCESS_KEY": AWS_S3_READONLY_SECRET_ACCESS_KEY,
