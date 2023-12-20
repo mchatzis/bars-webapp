@@ -32,9 +32,11 @@ HOST_NAME = os.environ.get('HOST_NAME', default="localhost")
 HOST_IP = os.environ.get('HOST_IP', default="127.0.0.1")
 HOST_PORT = os.environ.get('HOST_PORT', default="80")
 ALLOWED_HOSTS = [HOST_NAME]
-CSRF_TRUSTED_ORIGINS = ["http://" + HOST_NAME]
-# SECURE_PROXY_SSL_HEADER = ("X_FORWARDED_PROTO", "https")
+CSRF_TRUSTED_ORIGINS = ["https://" + HOST_NAME]
 
+# SSL
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 

@@ -43,10 +43,12 @@ services:
     build: ./nginx
     ports: 
       - 80:80
+      - 443:443
     depends_on:
       - web
     volumes:
       - static_volume:/home/ec2-user/app/bars-webapp/collectedstatic
+      - /home/ec2-user/.acme.sh/thess-places.space_ecc:/home/ec2-user/.acme.sh/thess-places.space_ecc
 
 volumes:
   pg_data:
