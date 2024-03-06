@@ -164,11 +164,10 @@ cython_debug/
 /media
 /openapi-generator-cli.jar
 /credentials.json
-/*.env
+*.env*
 
 /test.js
 /test.py
-/env.sh
 /Makefile
 /todo
 /aws-credentials.json

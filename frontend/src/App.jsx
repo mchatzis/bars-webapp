@@ -42,6 +42,7 @@ export default function App({apiInst, client, settings}) {
             });
 
             map.current.on('mouseenter', layerIds, (e) => {
+
                 const popup = new mapboxgl.Popup({
                     closeButton: false,
                     closeOnClick: false,
@@ -60,6 +61,7 @@ export default function App({apiInst, client, settings}) {
 
                 popup.setLngLat(coords).setHTML(html).addTo(map.current);
             });
+
             map.current.on('mouseleave', layerIds, () => {
                 map.current.getCanvas().style.cursor = '';
 

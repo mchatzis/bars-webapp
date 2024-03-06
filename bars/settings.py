@@ -25,18 +25,20 @@ SECRET_KEY = os.environ.get('DJANGO_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Note: environ.get will return a string, we want bool
-DEBUG = os.environ.get("DEBUG", default="False") == 'True'
+IS_PRODUCTION = os.environ.get("MODE", default="dev") == "prod"
+DEBUG = not IS_PRODUCTION
 
-
+PROTOCOL = os.environ.get('PROTOCOL', default="http://")
 HOST_NAME = os.environ.get('HOST_NAME', default="localhost")
 HOST_IP = os.environ.get('HOST_IP', default="127.0.0.1")
 HOST_PORT = os.environ.get('HOST_PORT', default="80")
 ALLOWED_HOSTS = [HOST_NAME]
-CSRF_TRUSTED_ORIGINS = ["https://" + HOST_NAME]
+CSRF_TRUSTED_ORIGINS = [PROTOCOL + HOST_NAME]
 
-# SSL
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+ # SSL
+if IS_PRODUCTION:
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 
@@ -134,11 +136,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-STATIC_ROOT= os.environ.get('STATIC_ROOT')
+if not IS_PRODUCTION:
+    STATIC_URL = "static/"
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'),
+    ]
+    STATIC_ROOT= os.environ.get('STATIC_ROOT')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
