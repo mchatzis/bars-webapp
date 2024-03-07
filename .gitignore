@@ -174,7 +174,7 @@ cython_debug/
 
 /static/index-bundle.js
 
-*.sql
+
 
 /docker-compose-dev.yaml
 /gunicorn-dev.conf.py
