@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from bars_app.models import BarType
-from bars.settings import PROTOCOL, HOST_NAME, AWS_S3_READONLY_KEY_ID, AWS_S3_READONLY_SECRET_ACCESS_KEY, S3_BUCKET_NAME, MAPBOX_TOKEN
+from bars.settings import PROTOCOL, HOST_NAME, S3_REGION, AWS_S3_READONLY_KEY_ID, AWS_S3_READONLY_SECRET_ACCESS_KEY, S3_BUCKET_NAME, MAPBOX_TOKEN
 
 
 class HomeView(TemplateView):
@@ -19,6 +19,7 @@ class HomeView(TemplateView):
             "AWS_S3_READONLY_KEY_ID": AWS_S3_READONLY_KEY_ID,
             "AWS_S3_READONLY_SECRET_ACCESS_KEY": AWS_S3_READONLY_SECRET_ACCESS_KEY,
             "S3_BUCKET_NAME": S3_BUCKET_NAME,
+            "S3_REGION": S3_REGION,
             "MAPBOX_TOKEN": MAPBOX_TOKEN
             }
         return context

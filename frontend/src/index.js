@@ -19,7 +19,7 @@ const apiInst = new BarsApi(
 )
 
 // AWS S3 client
-const REGION = "eu-central-1"
+const REGION = settings.S3_REGION
 
 const awsClient = new S3Client({
     region: REGION,
