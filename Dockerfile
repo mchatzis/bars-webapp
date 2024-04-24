@@ -16,9 +16,10 @@ WORKDIR $PROJ_ROOT
 ADD ./requirements.txt .
 RUN pip3 install -r requirements.txt
 
-COPY . .
-
+ADD ./package.json .
 RUN npm install
+
+COPY . .
 RUN npm run build
 
 CMD ["bash", "./entrypoint.sh"]
