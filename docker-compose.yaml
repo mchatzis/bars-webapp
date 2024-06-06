@@ -49,6 +49,7 @@ services:
     volumes:
       - static_volume:/home/ec2-user/app/bars-webapp/collectedstatic
       - /home/ec2-user/.acme.sh/thess-places.space_ecc:/home/ec2-user/.acme.sh/thess-places.space_ecc
+      - /home/ec2-user/app/bars-webapp/ssl:/home/ec2-user/app/bars-webapp/ssl
 
 volumes:
   pg_data:
